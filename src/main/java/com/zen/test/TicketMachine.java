@@ -19,9 +19,9 @@ public class TicketMachine {
     }
 
     public Ticket sellTicket(Human human) {
-        if(ticketNum == 0)
+        if (ticketNum == 0)
             throw new UnsupportedOperationException("sold out");
-        if(human.getAge() < 18)
+        if (human.getAge() < 18)
             throw new UnsupportedOperationException("must older than 18");
         Ticket t = new Ticket(queryTicketPrice(human));
         ticketNum--;
@@ -33,7 +33,7 @@ public class TicketMachine {
         int age = human.getAge();
         switch (human.getSex()) {
             case FEMALE:
-                if (age < 30 && age > 18) {
+                if (age < 30 && age >= 18) {
                     price *= DISCOUNT_FOR_FEMALE;
                 }
                 break;
@@ -46,5 +46,9 @@ public class TicketMachine {
                 break;
         }
         return price;
+    }
+
+    public int getTicketNum() {
+        return ticketNum;
     }
 }

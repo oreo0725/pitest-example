@@ -31,40 +31,34 @@ public class TicketMachineTest {
      */
     @Test
     public void testSellTicket_to_male() throws Exception {
-        TicketMachine tm = new TicketMachine(10);
-
-        Human man = new Person(18, Sex.MALE);
-
-        Ticket t = tm.sellTicket(man);
+        Ticket t = buyTicketFromMachine(10, 18, Sex.MALE);
 
         Assert.assertEquals(TicketMachine.ORIGIN_PRICE, t.getPrice(), 0.00000001f);
     }
 
-    /**
-     * Method: queryTicketPrice(Human zen.oreo.test.human)
-     */
     @Test
     public void testSellTicket_to_female() throws Exception {
-        TicketMachine tm = new TicketMachine(10);
-        Human woman = new Person(19, Sex.FEMALE);
-        Ticket t = tm.sellTicket(woman);
+        Ticket t = buyTicketFromMachine(10, 19, Sex.FEMALE);
 
         Assert.assertEquals(TicketMachine.ORIGIN_PRICE * DISCOUNT_FOR_FEMALE, t.getPrice(), 0.00000001f);
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void testSellTicket_to_non_adult() throws Exception {
-        TicketMachine tm = new TicketMachine(10);
-        Human woman = new Person(12, Sex.FEMALE);
-        Ticket t = tm.sellTicket(woman);
+        Ticket t = buyTicketFromMachine(10, 17, Sex.FEMALE);
 
+    }
+
+    @Test
+    public void testSellTicket_to_adult_woman() throws Exception {
+        Ticket t = buyTicketFromMachine(10, 18, Sex.FEMALE);
+
+        Assert.assertEquals(TicketMachine.ORIGIN_PRICE * DISCOUNT_FOR_FEMALE, t.getPrice(), 0.00000001f);
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void testSellTicket_to_no_ticket() throws Exception {
-        TicketMachine tm = new TicketMachine(0);
-        Human woman = new Person(19, Sex.FEMALE);
-        Ticket t = tm.sellTicket(woman);
+        Ticket t = buyTicketFromMachine(0, 19, Sex.FEMALE);
 
     }
 
@@ -75,5 +69,15 @@ public class TicketMachineTest {
         Ticket t = tm.sellTicket(man);
 
         Assert.assertEquals(TicketMachine.ORIGIN_PRICE * DISCOUNT_FOR_FEMALE, t.getPrice(), 0.00000001f);
+
+        Assert.assertEquals(1, tm.getTicketNum());
     }
-} 
+
+    private Ticket buyTicketFromMachine(int ticketNum,
+                                        int age,
+                                        Sex sex) {
+        TicketMachine tm = new TicketMachine(ticketNum);
+        Human woman = new Person(age, sex);
+        return tm.sellTicket(woman);
+    }
+}
