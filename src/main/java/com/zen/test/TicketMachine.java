@@ -8,7 +8,7 @@ import com.zen.test.human.Human;
  */
 public class TicketMachine {
 
-    public final static float DISCOUNT_FOR_FEMALE = 0.9f;
+    public final static float DISCOUNT = 0.9f;
 
     public final static float ORIGIN_PRICE = 100f;
 
@@ -34,12 +34,12 @@ public class TicketMachine {
         switch (human.getSex()) {
             case FEMALE:
                 if (age < 30 && age >= 18) {
-                    price *= DISCOUNT_FOR_FEMALE;
+                    price *= DISCOUNT;
                 }
                 break;
             case MALE:
                 if (age > 35) {
-                    price *= DISCOUNT_FOR_FEMALE;
+                    price *= DISCOUNT;
                 }
                 break;
             default:

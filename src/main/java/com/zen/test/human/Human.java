@@ -6,9 +6,7 @@ package com.zen.test.human;
  */
 public interface Human {
 
-    default int getAge() {
-        return 0;
-    }
+    int getAge();
 
     Sex getSex();
 }
